@@ -61,10 +61,8 @@
       }
     },
     created() {
-      if (!this.$route.query.point.startsWith('add')) {
+      if (typeof this.$route.query.point === "number")
         this.forms = {...this.ACCEPT_ITEM(this.$route.query.point)}
-        console.log('this.forms=== ', this.forms)
-      }
     }
   }
 </script>

@@ -39,6 +39,8 @@ export default new Vuex.Store({
     CHANGE_ITEM_TO_STORE(st, item) {
       let aa = st.tasks.filter(it => it.id !== item.id)
       st.tasks = [...aa, item]
+      st.groups.unshift(item.groupName)
+      st.groups = [...new Set(st.groups)]
     }
   },
   actions: {

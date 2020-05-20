@@ -1,28 +1,47 @@
 <template>
-  <div class="cart">
+  <div class="cart"
+       v-click-outside="onBlowDoun"
+  >
     <div class="cart__title">{{item.title}}</div>
     <div class="cart__status">
 
       <label :for="item.id">
-        <input type="checkbox" :id="item.id" v-model="status">Status
+        <input type="checkbox" :id="item.id" v-model="status"> Status
       </label>
     </div>
-    <div class="cart__description" v-clampy="5">
-      {{item.description}}
+    <div @click="onBlowUp(item.id)" class="cart__description">
+      {{item.description | cut}}
     </div>
-    <div class="cart__btns">
 
+    <div v-show="descriptionBlowUp"
+         @click="onBlowDoun"
+         class="cart__description_full"
+         :class="{'cart__descriptionBlowUp': descriptionBlowUp}"
+    >
+      <div class="cart__description_full__title">
+        {{item.title}}
+      </div>
+      <div class="cart__description_full__text">
+        {{item.description}}
+      </div>
+    </div>
+
+    <div class="cart__btns">
       <button @mouseup="DELETE_ITEM(item.id)" class="cart__btn">Delete</button>
       <button @mouseup="onChangeItem(item.id)" class="cart__btn">Change</button>
     </div>
+
   </div>
 </template>
 
 <script>
-  import clampy from '@clampy-js/vue-clampy';
   import {mapActions} from 'vuex'
+  import vClickOutside from 'v-click-outside'
 
   export default {
+    data: () => ({
+      descriptionBlowUp: false
+    }),
     props: {
       item: {
         type: Object,
@@ -39,9 +58,6 @@
         }
       }
     },
-    directives: {
-      clampy
-    },
     methods: {
       ...mapActions({
         CHANGE_STATUS: 'CHANGE_STATUS',
@@ -49,7 +65,19 @@
       }),
       onChangeItem(id) {
         this.$router.push({name: 'Add', query: {point: id}})
+      },
+      onBlowUp() {
+        this.descriptionBlowUp = true
+      },
+      onBlowDoun() {
+        this.descriptionBlowUp = false
       }
+    },
+    directives: {
+      clickOutside: vClickOutside.directive
+    },
+    filters: {
+      cut: v => v.substr(0, window.innerWidth / 10) + '... '
     }
   }
 </script>
@@ -62,6 +90,7 @@
     height: 200px;
     margin-bottom: 7px;
     outline: $darkgrey 1px solid;
+    overflow: hidden;
 
     :last-child {
       margin-right: 0;
@@ -85,6 +114,39 @@
 
     &__description {
       padding: 5px;
+      cursor: pointer;
+      text-overflow: ellipsis;
+      word-wrap: break-word;
+      overflow: hidden;
+    }
+
+    &__description_full {
+      position: fixed;
+      width: 40vw;
+      height: 50vh;
+      left: 10%;
+      top: 10%;
+      padding: 8%;
+      background-color: $grey;
+      opacity: 0;
+      transition: all 1s ease;
+
+      &__title {
+        font-size: 24px;
+        font-weight: 500;
+        color: $secondary;
+      }
+
+      &__text {
+        margin-top: 20px;
+        font-size: 18px;
+      }
+    }
+
+    &__descriptionBlowUp {
+      opacity: 1;
+      cursor: pointer;
+      transition: opacity 1s ease;
     }
 
     &__btns {
@@ -113,6 +175,7 @@
 
   label, input {
     cursor: pointer;
+    text-indent: 5px;
   }
 
 </style>
