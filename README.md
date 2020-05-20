@@ -1,4 +1,3 @@
-# takeoff
 
 ## Project setup
 ```
