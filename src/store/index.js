@@ -53,8 +53,8 @@ export default new Vuex.Store({
       commit('CHANGE_STATUS', {id, newValue})
       //при наличии бакенда здесь необходимо делать запрос на CHANGE status в bd сервера
     },
-    DELETE_ITEM({commit, state: {tasks}}, id) {
-      let itemIndex = tasks.findIndex(it => it.id === id)
+    DELETE_ITEM({commit, dispatch, state}, id) {
+      let itemIndex = state.tasks.findIndex(it => it.id === id)
       commit('DELETE_ITEM_IN_STORE', itemIndex)
       //при наличии бакенда здесь необходимо делать запрос на удаление item в bd сервера
     },
@@ -63,7 +63,7 @@ export default new Vuex.Store({
       //при наличии бакенда здесь необходимо делать запрос на удаление группы в bd сервера
     },
     MAKE_TASK({commit}, item) {
-      if(item.title.length == 0) {
+      if (item.title.length === 0) {
         commit('ADD_GROUP_TO_STORE', item.groupName)
         //при наличии бакенда здесь необходимо делать запрос на изменение в bd сервера
         return Promise.resolve()
