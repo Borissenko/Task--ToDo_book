@@ -6,136 +6,96 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    data: [],
-    dd: [
-      {
-        "groupName": "first",
-        "id": 1,
-        "title": "Graham",
-        "status": true,
-        "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor doloremque eos exercitationem harum illum modi molestias quia tenetur, veniam voluptatum?"
-      },
-      {
-        "groupName": "first",
-        "id": 2,
-        "title": "Graham",
-        "status": true,
-        "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor doloremque eos exercitationem harum illum modi molestias quia tenetur, veniam voluptatum?"
-      },
-      {
-        "groupName": "first",
-        "id": 3,
-        "title": "Graham",
-        "status": true,
-        "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor doloremque eos exercitationem harum illum modi molestias quia tenetur, veniam voluptatum?"
-      },
-      {
-        "groupName": "first",
-        "id": 4,
-        "title": "Graham",
-        "status": true,
-        "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor doloremque eos exercitationem harum illum modi molestias quia tenetur, veniam voluptatum?"
-      }
-    ]
+    groups: [],
+    tasks: []
   },
   mutations: {
-    SET_DATA_TO_STORE(st, data) {
-      st.data = data
+    SET_GROUPS_TO_STORE(st, data) {
+      st.groups = data
+    },
+    SET_TASKS_TO_STORE(st, data) {
+      st.tasks = data
     },
     CHANGE_STATUS(st, {id, newValue}) {
-      let itemIndex = st.data.items.findIndex(it => it.id === id)
-      st.data.items[itemIndex].status = newValue
+      let itemIndex = st.tasks.findIndex(it => it.id === id)
+      st.tasks[itemIndex].status = newValue
     },
     DELETE_ITEM_IN_STORE(st, itemIndex) {
-      st.data.items.splice(itemIndex, 1)
+      st.tasks.splice(itemIndex, 1)
     },
     DELETE_GROUP_IN_STORE(st, groupName) {
-      st.data.items = st.data.items.filter(it => it.groupName !== groupName)
-      st.data.groupNames = st.data.groupNames.filter(it => it !== groupName)
+      st.tasks = st.tasks.filter(it => it.groupName !== groupName)
+      st.groups = st.groups.filter(it => it !== groupName)
     },
-
+    ADD_GROUP_TO_STORE(st, group) {
+      st.groups.unshift(group)
+      st.groups = [...new Set(st.groups)]
+    },
     ADD_ITEM_TO_STORE(st, item) {
-      console.log('item \=====', item)  //
-      console.log('st.data.items \=====', st.data.items)
-
-      let old = JSON.parse(JSON.stringify(st))
-      old.data.items.unshift(item)
-      console.log('old.data.items \=====', old.data.items)
-
-      st = old
-      console.log('st - 2 \=====', st)
-
-      // st.dd.unshift(item)
-
-
-//I need also add a new group of name.
-
+      st.tasks.unshift(item)
+      st.groups.unshift(item.groupName)
+      st.groups = [...new Set(st.groups)]
     },
-
-
-
-
     CHANGE_ITEM_TO_STORE(st, item) {
-      let aa = st.data.filter(it => it.id !== item.id)
-      st.data = [...aa, item]
+      let aa = st.tasks.filter(it => it.id !== item.id)
+      st.tasks = [...aa, item]
     }
   },
-
-
   actions: {
     async GET_DATA({commit}) {    //инициализирующий запрос и получение данных с сервера
       let {data} = await axios.get('/data.json')
-      commit('SET_DATA_TO_STORE', data)
+      commit('SET_GROUPS_TO_STORE', data.groupNames)
+      commit('SET_TASKS_TO_STORE', data.tasks)
     },
     CHANGE_STATUS({commit}, {id, newValue}) {
       commit('CHANGE_STATUS', {id, newValue})
       //при наличии бакенда здесь необходимо делать запрос на CHANGE status в bd сервера
     },
-    DELETE_ITEM({commit, state: {data}}, id) {
-      let itemIndex = data.items.findIndex(it => it.id === id)
+    DELETE_ITEM({commit, state: {tasks}}, id) {
+      let itemIndex = tasks.findIndex(it => it.id === id)
       commit('DELETE_ITEM_IN_STORE', itemIndex)
       //при наличии бакенда здесь необходимо делать запрос на удаление item в bd сервера
     },
-    DELETE_GROUP({commit, state: {data}}, groupName) {
+    DELETE_GROUP({commit}, groupName) {
       commit('DELETE_GROUP_IN_STORE', groupName)
       //при наличии бакенда здесь необходимо делать запрос на удаление группы в bd сервера
     },
+    MAKE_TASK({commit}, item) {
+      if(item.title.length == 0) {
+        commit('ADD_GROUP_TO_STORE', item.groupName)
+        //при наличии бакенда здесь необходимо делать запрос на изменение в bd сервера
+        return Promise.resolve()
+      }
 
-    MAKE_TASK({commit, state: {data}}, item) {
       if (item.id == null) {    //если id- нет, то здесь НОВЫЙ item.
         const id = Date.now()
-        commit('ADD_ITEM_TO_STORE', {...item, id})
+        commit('ADD_ITEM_TO_STORE', {...item, id})  //присуждаем id item-объекту
         //при наличии бакенда здесь необходимо делать запрос на добавление item в bd сервера
-        return Promise.resolve()    //для редиректа на '/'
+        return Promise.resolve()    //для редиректа на '/'.
       } else {
         commit('CHANGE_ITEM_TO_STORE', item)
         //при наличии бакенда здесь необходимо делать запрос на изменение item'a в bd сервера
         return Promise.resolve()
       }
     }
-
-
-
-
-
   },
   getters: {
     ACCEPT_FILTRED_DATA: state => filters => {
       if (filters.status === 'all') {
         if (filters.name === '') {  // любой статус, без фильтра по имени
-          return state.data.items
+          return state.tasks
         } else {                   // любой статус, фильтр по имени
-          return state.data.items.filter(it => it.title.toLowerCase().includes(filters.name.toLowerCase()))
+          return state.tasks.filter(it => it.title.toLowerCase().includes(filters.name.toLowerCase()))
         }
       } else {                    // отфильтруем по статусу и по имени
         if (filters.name === '') {
-          return state.data.items.filter(it => Boolean(it.status) === Boolean(filters.status))
+          return state.tasks.filter(it => Boolean(it.status) === Boolean(filters.status))
         } else {
-          return state.data.items.filter(it => it.title.toLowerCase().includes(filters.name.toLowerCase()) && Boolean(it.status) === Boolean(filters.status))
+          return state.tasks.filter(it => it.title.toLowerCase().includes(filters.name.toLowerCase()) && Boolean(it.status) === Boolean(filters.status))
         }
       }
     },
-    ACCEPT_GROUP_NAMES: state => state.data.groupNames,
-    ACCEPT_ITEM: state => id => state.data.items.find(it => it.id === Number(id))
+    ACCEPT_GROUP_NAMES: state => state.groups,
+    ACCEPT_ITEM: state => id => state.tasks.find(it => it.id === Number(id))
   }
 })

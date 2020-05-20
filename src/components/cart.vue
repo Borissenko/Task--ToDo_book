@@ -11,6 +11,7 @@
       {{item.description}}
     </div>
     <div class="cart__btns">
+
       <button @mouseup="DELETE_ITEM(item.id)" class="cart__btn">Delete</button>
       <button @mouseup="onChangeItem(item.id)" class="cart__btn">Change</button>
     </div>

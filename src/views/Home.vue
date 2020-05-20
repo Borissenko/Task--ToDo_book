@@ -2,10 +2,6 @@
   <div>
     <bar @changeFilter="changeFilter"/>
 
-    <pre>
-      {{ACCEPT_FILTRED_DATA(filters)}}
-    </pre>
-
     <div v-for="(groupName, ind) in ACCEPT_GROUP_NAMES"
          :key="ind"
          class="carts-group"
@@ -65,7 +61,8 @@
       }
     },
     created() {
-      this.GET_DATA()
+      if (this.ACCEPT_FILTRED_DATA({name: '', status: 'all'}).length == 0)
+        this.GET_DATA()
     }
   }
 </script>

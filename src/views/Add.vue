@@ -3,10 +3,6 @@
     <div class="title">
       Enter new fields to your task
     </div>
-    $route.query.point = {{$route.query.point}}
-        <pre>
-          forms = {{forms}}
-        </pre>
 
     <form @submit.prevent="makeItem" class="form">
       <div v-for="(field, ind) in fields" class="form__field">
@@ -66,7 +62,7 @@
     },
     created() {
       if (!this.$route.query.point.startsWith('add')) {
-        this.forms = {...this.ACCEPT_ITEM(this.$route.query.point)}  //ron ??
+        this.forms = {...this.ACCEPT_ITEM(this.$route.query.point)}
         console.log('this.forms=== ', this.forms)
       }
     }
