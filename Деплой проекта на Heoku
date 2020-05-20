@@ -1,0 +1,52 @@
+Деплой на Heroku по адресу
+https://ancient-eyrie-17129.herokuapp.com/
+
+Login- 016@r........ru
+Password 5........Zz.
+
+
+Сделал согласно:
+https://cli.vuejs.org/ru/guide/deployment.html#stdlib
+
+
+Установите Heroku CLI
+
+
+Создайте файл static.json:
+
+{
+  "root": "dist",
+  "clean_urls": true,
+  "routes": {
+    "/**": "index.html"
+  }
+}
+
+
+
+Добавьте файл static.json в git
+
+git add static.json
+git commit -m "add static configuration"
+
+
+
+Запустите публикацию на Heroku
+
+heroku login
+heroku create
+heroku buildpacks:add heroku/nodejs
+heroku buildpacks:add https://github.com/heroku/heroku-buildpack-static
+git push heroku master
+
+==>> закачалось на 
+https://git.heroku.com/ancient-eyrie-17129.git
+
+Сайт открывается по адресу
+https://ancient-eyrie-17129.herokuapp.com/
+
+
+
+Подробная информация: Начало работы с SPA на Heroku
+https://gist.github.com/hone/24b06869b4c1eca701f9
+
