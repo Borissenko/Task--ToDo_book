@@ -3,12 +3,9 @@
        v-click-outside="onBlowDoun"
   >
     <div class="cart__title">{{item.title}}</div>
-    <div class="cart__status">
-
-      <label :for="item.id">
-        <input type="checkbox" :id="item.id" v-model="status"> Status
-      </label>
-    </div>
+    <label class="cart__status">
+      <input type="checkbox" :id="item.id" v-model="status"> Status
+    </label>
     <div @click="onBlowUp(item.id)" class="cart__description">
       {{item.description | cut}}
     </div>
@@ -118,6 +115,10 @@
       text-overflow: ellipsis;
       word-wrap: break-word;
       overflow: hidden;
+    }
+
+    &__description:hover {
+      color: $green;
     }
 
     &__description_full {
