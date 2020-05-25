@@ -5,7 +5,10 @@
       <div class="bar__title">
         ToDo
       </div>
-      <div @click="onLogout" class="bar__logout">
+      <div @click="onLogout"
+           v-if="$route.path === '/todo'"
+           class="bar__logout"
+      >
         logout
       </div>
     </div>
@@ -41,6 +44,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      margin: 20px 0;
       padding: 0 20px;
 
       &__title {
@@ -50,7 +54,6 @@
       }
 
       &__logout {
-        margin: 20px 0;
         font-size: 16px;
         font-weight: 800;
         color: $secondary;
