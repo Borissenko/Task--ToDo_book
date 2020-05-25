@@ -4,7 +4,8 @@
   >
     <div class="cart__title">{{item.title}}</div>
     <label class="cart__status">
-      <input type="checkbox" :id="item.id" v-model="status"> Status
+      <input type="checkbox" :id="item.id" v-model="status">
+      Status
     </label>
     <div @click="onBlowUp(item.id)" class="cart__description">
       {{item.description | cut}}
