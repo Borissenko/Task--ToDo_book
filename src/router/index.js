@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '../store'
 
 import Auth from '../views/Auth.vue'
 import ToDo from '../views/ToDo.vue'
@@ -7,7 +8,7 @@ import Add from '../views/Add.vue'
 
 Vue.use(VueRouter)
 
-  const routes = [
+const routes = [
   {
     path: '/',
     name: 'Auth',
@@ -18,7 +19,7 @@ Vue.use(VueRouter)
     name: 'ToDo',
     component: ToDo,
     beforeEnter(to, from, next) {
-      if(store.state.token === true) {
+      if (store.state.token === 'true' || localStorage.getItem('auth = ')) {
         next()
       } else {
         next('/')
@@ -30,7 +31,9 @@ Vue.use(VueRouter)
     name: 'Add',
     component: Add,
     beforeEnter(to, from, next) {
-      if(store.state.token === true) {
+      if (store.state.token === 'false' && localStorage.getItem('auth = ')) {
+        next('/todo')
+      } else if (store.state.token === 'true' || localStorage.getItem('auth = ')) {
         next()
       } else {
         next('/')

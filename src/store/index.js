@@ -6,7 +6,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    token: false,
+    token: 'false',
     groups: [],
     tasks: []
   },
@@ -15,7 +15,7 @@ export default new Vuex.Store({
       st.token = token
     },
     DELETE_TOKEN (st) {
-      st.token = false
+      st.token = 'false'
     },
     SET_GROUPS_TO_STORE(st, data) {
       st.groups = data
@@ -53,10 +53,18 @@ export default new Vuex.Store({
   actions: {
     AUTH_FORM({commit, dispatch}, pl) {  //факовая аут-я и факовое получение токена с сервера
       if(pl !== undefined) {
-        return Promise.resolve(true)
-          .then(response => commit('PUT_TOKEN', response))
+        return Promise.resolve('true')
+          .then(response => {
+            commit('PUT_TOKEN', response)
+            return response
+          })
+          .then(response => localStorage.setItem('auth = ', response.toString()))
           .then(() => dispatch('GET_DATA'))
       }
+    },
+    DELETE_TOKEN({commit}) {
+      localStorage.removeItem('auth = ')
+      commit('DELETE_TOKEN')
     },
     async GET_DATA({commit}) {    //инициализирующий запрос и получение данных с сервера
       let {data} = await axios.get('/data.json')
@@ -112,6 +120,7 @@ export default new Vuex.Store({
       }
     },
     ACCEPT_GROUP_NAMES: state => state.groups,
-    ACCEPT_ITEM: state => id => state.tasks.find(it => it.id === Number(id))
+    ACCEPT_ITEM: state => id => state.tasks.find(it => it.id === Number(id)),
+    GET_TOKEN_FROM_STORE: state => state.token
   }
 })

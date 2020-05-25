@@ -15,13 +15,13 @@
 </template>
 
 <script>
-  import {mapMutations} from 'vuex'
+  import {mapActions} from 'vuex'
 
   export default {
     methods: {
-      ...mapMutations([
-        'DELETE_TOKEN'
-      ]),
+      ...mapActions({
+        DELETE_TOKEN: 'DELETE_TOKEN'
+    }),
       onLogout() {
         this.DELETE_TOKEN()
         this.$router.push('/')

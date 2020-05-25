@@ -54,10 +54,10 @@
       }),
       makeItem() {
         this.MAKE_TASK(this.forms)
-          .then(() => this.$router.push('/'))
+          .then(() => this.$router.push('/todo'))
       },
       onAbort() {
-        this.$router.push('/')
+        this.$router.push('/todo')
       }
     },
     created() {

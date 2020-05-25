@@ -27,7 +27,7 @@
 </template>
 
 <script>
-  import {mapGetters, mapActions} from 'vuex'
+  import {mapGetters, mapActions, mapMutations} from 'vuex'
   import Bar from '@/components/bar'
   import Cart from '@/components/cart'
 
@@ -53,6 +53,9 @@
         GET_DATA: 'GET_DATA',
         DELETE_GROUP: 'DELETE_GROUP'
       }),
+      ...mapMutations({
+        PUT_TOKEN: 'PUT_TOKEN'
+      }),
       changeFilter(filters) {
         this.filters = filters
       },
@@ -63,6 +66,9 @@
     created() {
       if (this.ACCEPT_FILTRED_DATA({name: '', status: 'all'}).length == 0)
         this.GET_DATA()
+
+      if(!this.GET_TOKEN_FROM_STORE && localStorage.getItem('auth = '))
+        this.PUT_TOKEN(localStorage.getItem('auth = '))
     }
   }
 </script>
