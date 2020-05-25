@@ -47,6 +47,23 @@ https://ancient-eyrie-17129.herokuapp.com/
 
 
 
+............
+внес изменения в проект
+повторнопрошел по командам
+heroku login
+heroku create
+heroku buildpacks:add heroku/nodejs
+heroku buildpacks:add https://github.com/heroku/heroku-buildpack-static
+git push heroku master
+===>
+https://git.heroku.com/evening-reef-35054.git
+https://evening-reef-35054.herokuapp.com/
+
+но сайт не открывается...
+
+
+
+
 Подробная информация: Начало работы с SPA на Heroku
 https://gist.github.com/hone/24b06869b4c1eca701f9
 
