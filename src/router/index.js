@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import Home from '../views/Home.vue'
+import Auth from '../views/Auth.vue'
+import ToDo from '../views/ToDo.vue'
 import Add from '../views/Add.vue'
 
 Vue.use(VueRouter)
@@ -9,13 +10,32 @@ Vue.use(VueRouter)
   const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'Auth',
+    component: Auth
+  },
+  {
+    path: '/todo',
+    name: 'ToDo',
+    component: ToDo,
+    beforeEnter(to, from, next) {
+      if(store.state.token === true) {
+        next()
+      } else {
+        next('/')
+      }
+    }
   },
   {
     path: '/add',
     name: 'Add',
-    component: Add
+    component: Add,
+    beforeEnter(to, from, next) {
+      if(store.state.token === true) {
+        next()
+      } else {
+        next('/')
+      }
+    }
   }
 ]
 

@@ -6,10 +6,17 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    token: false,
     groups: [],
     tasks: []
   },
   mutations: {
+    PUT_TOKEN(st, token) {
+      st.token = token
+    },
+    DELETE_TOKEN (st) {
+      st.token = false
+    },
     SET_GROUPS_TO_STORE(st, data) {
       st.groups = data
     },
@@ -44,6 +51,13 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    AUTH_FORM({commit, dispatch}, pl) {  //факовая аут-я и факовое получение токена с сервера
+      if(pl !== undefined) {
+        return Promise.resolve(true)
+          .then(response => commit('PUT_TOKEN', response))
+          .then(() => dispatch('GET_DATA'))
+      }
+    },
     async GET_DATA({commit}) {    //инициализирующий запрос и получение данных с сервера
       let {data} = await axios.get('/data.json')
       commit('SET_GROUPS_TO_STORE', data.groupNames)
