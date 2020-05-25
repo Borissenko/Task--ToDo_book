@@ -19,9 +19,9 @@
 
   export default {
     methods: {
-      ...mapActions({
-        DELETE_TOKEN: 'DELETE_TOKEN'
-    }),
+      ...mapActions([
+        'DELETE_TOKEN'
+      ]),
       onLogout() {
         this.DELETE_TOKEN()
         this.$router.push('/')
@@ -57,9 +57,11 @@
         text-transform: uppercase;
         cursor: pointer;
       }
+
       &__logout:hover {
         color: $very;
       }
+
       &__logout:active {
         color: $secondary_2;
       }

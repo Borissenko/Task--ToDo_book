@@ -43,19 +43,19 @@
       }
     }),
     computed: {
-      ...mapGetters({
-        ACCEPT_GROUP_NAMES: 'ACCEPT_GROUP_NAMES',
-        ACCEPT_FILTRED_DATA: 'ACCEPT_FILTRED_DATA'
-      })
+      ...mapGetters([
+        'ACCEPT_GROUP_NAMES',
+        'ACCEPT_FILTRED_DATA'
+      ])
     },
     methods: {
-      ...mapActions({
-        GET_DATA: 'GET_DATA',
-        DELETE_GROUP: 'DELETE_GROUP'
-      }),
-      ...mapMutations({
-        PUT_TOKEN: 'PUT_TOKEN'
-      }),
+      ...mapActions([
+        'GET_DATA',
+        'DELETE_GROUP'
+      ]),
+      ...mapMutations([
+        'PUT_TOKEN'
+      ]),
       changeFilter(filters) {
         this.filters = filters
       },
@@ -67,7 +67,7 @@
       if (this.ACCEPT_FILTRED_DATA({name: '', status: 'all'}).length == 0)
         this.GET_DATA()
 
-      if(!this.GET_TOKEN_FROM_STORE && localStorage.getItem('auth = '))
+      if (!this.GET_TOKEN_FROM_STORE && localStorage.getItem('auth = '))
         this.PUT_TOKEN(localStorage.getItem('auth = '))
     }
   }
