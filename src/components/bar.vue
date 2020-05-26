@@ -12,18 +12,18 @@
       Select status of tasks
     </div>
 
-    <div class="bar__radio">
-      <input @click="changeFilter" type="radio" id="all" value="all" v-model="filters.status">
-      <label for="all">All</label>
-    </div>
-    <div class="bar__radio">
-      <input @click="changeFilter" type="radio" id="yes" value="done" v-model="filters.status">
-      <label for="yes">Done</label>
-    </div>
-    <div class="bar__radio">
-      <input @click="changeFilter" type="radio" id="no" value="" v-model="filters.status">
-      <label for="no">On the road</label>
-    </div>
+    <label class="bar__radio">
+      <input @click="changeFilter" type="radio" value="all" v-model="filters.status">
+      All
+    </label>
+    <label class="bar__radio">
+      <input @click="changeFilter" type="radio" value="done" v-model="filters.status">
+      Done
+    </label>
+    <label class="bar__radio">
+      <input @click="changeFilter" type="radio" value="" v-model="filters.status">
+      <div>On the road</div>
+    </label>
 
     <button @click="onMakeItem('add group')" class="bar__btn-add-group">Add new group of tasks</button>
     <button @click="onMakeItem('add task')" class="bar__btn-add-task">Add new task</button>
@@ -62,13 +62,17 @@
       grid-row: 1;
       grid-column: 1;
     }
+
     &__filter-input {
       grid-row: 1;
       grid-column: 2 / span 3;
       height: 20px;
     }
 
-    &__radio, &__radio label, &__radio input {
+    &__radio, &__radio input {
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
       cursor: pointer;
     }
 
