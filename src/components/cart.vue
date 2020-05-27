@@ -4,9 +4,10 @@
   >
     <div class="cart__title">{{item.title}}</div>
     <label class="cart__status">
-      <input type="checkbox" :id="item.id" v-model="status">
+      <input type="checkbox" v-model="status">
       Status
     </label>
+
     <div @click="onBlowUp(item.id)" class="cart__description">
       {{item.description | cut}}
     </div>
@@ -28,7 +29,6 @@
       <button @mouseup="DELETE_ITEM(item.id)" class="cart__btn">Delete</button>
       <button @mouseup="onChangeItem(item.id)" class="cart__btn">Change</button>
     </div>
-
   </div>
 </template>
 
@@ -49,7 +49,7 @@
     computed: {
       status: {
         get: function () {
-          return Boolean(this.item.status)
+          return this.item.status
         },
         set: function (newValue) {
           this.CHANGE_STATUS({id: this.item.id, newValue})
