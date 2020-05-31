@@ -2,7 +2,8 @@
   <div class="alert">
     {{alertRun}}
     <div class="alert__title">
-      A you sure ?
+      <div>A YOU SURE</div>
+      <div>to delete "{{deletedItemName}}" ?</div>
     </div>
 
     <div class="alert__btns">
@@ -47,13 +48,19 @@
     top: 10%;
     padding: 8%;
     background-color: $grey;
-    text-transform: uppercase;
     opacity: 1;
     transition: all 1s ease;
 
     &__title {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       font-size: 18px;
-      color: $orange;
+
+      :first-child {
+        color: $orange;
+        margin-bottom: 5px;
+      }
     }
 
     &__btns {

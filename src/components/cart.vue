@@ -30,7 +30,7 @@
       <button @mouseup="onChangeItem(item.id)" class="cart__btn">Change</button>
     </div>
 
-    <alert :deletedItemName="deletedItemName"
+    <alert :deletedItemName="item.title"
            :deleteFunction="DELETE_ITEM"
            v-if="alertUp"
            @alertDown="alertDown"
@@ -49,7 +49,6 @@
     },
     data: () => ({
       descriptionBlowUp: false,
-      deletedItemName: '',
       alertUp: false
     }),
     props: {

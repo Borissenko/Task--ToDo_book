@@ -1,5 +1,6 @@
-Деплой на Heroku по адресу
-https://ancient-eyrie-17129.herokuapp.com/
+Деплой на Heroku по адресу 
+https://fast-tundra-90484.herokuapp.com/ deployed to Heroku
+https://git.heroku.com/fast-tundra-90484.git
 
 Login- 016@r........ru
 Password 5........Zz.
@@ -48,6 +49,7 @@ https://ancient-eyrie-17129.herokuapp.com/
 
 
 ............
+#2 atempt
 внес изменения в проект
 повторнопрошел по командам
 heroku login
@@ -61,9 +63,29 @@ https://evening-reef-35054.herokuapp.com/
 
 но сайт не открывается...
 
+......................
+#3 atempt
+> heroku create
+Creating app... done, ⬢ fast-tundra-90484
+https://fast-tundra-90484.herokuapp.com/ | https://git.heroku.com/fast-tundra-90484.git
+
+> heroku buildpacks:add heroku/nodejs
+Buildpack added. Next release on fast-tundra-90484 will use heroku/nodejs.
+Run git push heroku master to create a new release using this buildpack.
+
+>heroku buildpacks:add https://github.com/heroku/heroku-buildpack-static
+Buildpack added. Next release on fast-tundra-90484 will use:
+  1. heroku/nodejs
+  2. https://github.com/heroku/heroku-buildpack-static
+Run git push heroku master to create a new release using these buildpacks.
+
+>git push heroku master
+
+c
 
 
 
+..................
 Подробная информация: Начало работы с SPA на Heroku
 https://gist.github.com/hone/24b06869b4c1eca701f9
 
