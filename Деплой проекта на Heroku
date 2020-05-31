@@ -1,5 +1,5 @@
 Деплой на Heroku по адресу 
-https://fast-tundra-90484.herokuapp.com/ deployed to Heroku
+https://fast-tundra-90484.herokuapp.com/
 https://git.heroku.com/fast-tundra-90484.git
 
 Login- 016@r........ru
@@ -81,8 +81,18 @@ Run git push heroku master to create a new release using these buildpacks.
 
 >git push heroku master
 
-c
+https://fast-tundra-90484.herokuapp.com/
+https://git.heroku.com/fast-tundra-90484.git
 
+
+..................
+..................
+tutorial
+https://devcenter.heroku.com/articles/git#deploying-code
+
+см для обновлений проекта
+https://devcenter.heroku.com/articles/git#deploying-code
+Use this same command whenever you want to deploy the latest committed version of your code to Heroku.
 
 
 ..................

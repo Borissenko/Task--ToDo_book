@@ -1,14 +1,16 @@
 <template>
-  <div class="alert">
-    {{alertRun}}
-    <div class="alert__title">
-      <div>A YOU SURE</div>
-      <div>to delete "{{deletedItemName}}" ?</div>
-    </div>
+  <div class="alert-fon">
+    <div class="alert">
+      {{alertRun}}
+      <div class="alert__title">
+        <div>A YOU SURE</div>
+        <div>to delete "{{deletedItemName}}" ?</div>
+      </div>
 
-    <div class="alert__btns">
-      <button @mouseup="onYes" class="alert__btn">YES</button>
-      <button @mouseup="onAbort" class="alert__btn">abort</button>
+      <div class="alert__btns">
+        <button @mouseup="onYes" class="alert__btn">YES</button>
+        <button @mouseup="onAbort" class="alert__btn">abort</button>
+      </div>
     </div>
   </div>
 </template>
@@ -38,51 +40,61 @@
 </script>
 
 <style lang="scss" scoped>
-  .alert {
+  .alert-fon {
     position: fixed;
-    width: 50vw;
-    max-width: 250px;
-    height: 30vh;
-    max-height: 100px;
-    left: 10%;
-    top: 10%;
-    padding: 8%;
-    background-color: $grey;
-    opacity: 1;
-    transition: all 1s ease;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: transparent;
 
-    &__title {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      font-size: 18px;
+    .alert {
+      position: absolute;
+      width: 50vw;
+      max-width: 250px;
+      height: 30vh;
+      max-height: 100px;
+      left: 10%;
+      top: 10%;
+      padding: 8%;
+      background-color: $grey;
+      opacity: 1;
+      transition: all 1s ease;
+      margin-left: 0;
 
-      :first-child {
-        color: $orange;
-        margin-bottom: 5px;
-      }
-    }
+      &__title {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        font-size: 18px;
 
-    &__btns {
-      display: flex;
-      flex-flow: row wrap;
-      width: 100%;
-      align-self: flex-end;
-      justify-content: space-between;
-      margin: 60px 0 0;
-
-      .alert__btn {
-        width: 44%;
-        min-width: 70px;
-        min-height: 20px;
-        height: fit-content;
+        :first-child {
+          color: $orange;
+          margin-bottom: 5px;
+        }
       }
 
-      .alert__btn:hover {
-        background-color: $secondary;
-        color: white;
-        transition: all ease .2s;
-        cursor: pointer;
+      &__btns {
+        display: flex;
+        flex-flow: row wrap;
+        width: 100%;
+        align-self: flex-end;
+        justify-content: space-between;
+        margin: 60px 0 0;
+
+        .alert__btn {
+          width: 44%;
+          min-width: 70px;
+          min-height: 20px;
+          height: fit-content;
+        }
+
+        .alert__btn:hover {
+          background-color: $secondary;
+          color: white;
+          transition: all ease .2s;
+          cursor: pointer;
+        }
       }
     }
   }
