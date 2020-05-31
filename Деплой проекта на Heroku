@@ -90,7 +90,9 @@ https://git.heroku.com/fast-tundra-90484.git
 tutorial
 https://devcenter.heroku.com/articles/git#deploying-code
 
-см для обновлений проекта
+ДЛЯ ОБНОВЛЕНИЯ КОДА ПРОЕКТА НА ДИПЛОЕ жмем
+git push heroku master
+
 https://devcenter.heroku.com/articles/git#deploying-code
 Use this same command whenever you want to deploy the latest committed version of your code to Heroku.
 
