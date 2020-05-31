@@ -1,7 +1,5 @@
 <template>
   <div>
-    alertUp = {{alertUp}},
-    deletedGroupName = {{deletedGroupName}},
     <bar @changeFilter="changeFilter"/>
 
     <div v-for="(groupName, ind) in ACCEPT_GROUP_NAMES"
@@ -26,10 +24,11 @@
       </div>
     </div>
 
-<!--    <alert :deletedGroupName="deletedGroupName"-->
-<!--           :deleteFunction="DELETE_GROUP"-->
-<!--           v-if="alertUp"-->
-<!--    />-->
+    <alert :deletedItemName="deletedGroupName"
+           :deleteFunction="DELETE_GROUP"
+           v-if="alertUp"
+           @alertDown="alertDown"
+    />
   </div>
 </template>
 
@@ -76,6 +75,9 @@
       alertRun(groupName) {
         this.deletedGroupName = groupName
         this.alertUp = true
+      },
+      alertDown() {
+        this.alertUp = false
       }
     },
     created() {

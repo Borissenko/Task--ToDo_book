@@ -6,31 +6,32 @@
     </div>
 
     <div class="alert__btns">
-      <button @mouseup="" class="alert__btn">YES</button>
-      <button @mouseup="" class="alert__btn">abort</button>
+      <button @mouseup="onYes" class="alert__btn">YES</button>
+      <button @mouseup="onAbort" class="alert__btn">abort</button>
     </div>
   </div>
 </template>
 
 <script>
-  import {mapMutations, mapActions} from 'vuex'
-
   export default {
     props: {
-      deletedGroupName: {
+      deletedItemName: {
         type: String,
         required: true
       },
       deleteFunction: {
         type: Function,
         required: true
-      },
-      alertUp: {
-        type: Boolean,
-        required: true
       }
     },
     methods: {
+      onYes() {
+        this.deleteFunction(this.deletedItemName)
+        this.$emit('alertDown')
+      },
+      onAbort() {
+        this.$emit('alertDown')
+      }
     }
   }
 </script>

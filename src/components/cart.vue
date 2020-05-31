@@ -90,10 +90,6 @@
     outline: $darkgrey 1px solid;
     overflow: hidden;
 
-    :last-child {
-      margin-right: 0;
-    }
-
     &__title, &__status {
       height: 30px;
       font-size: 22px;
