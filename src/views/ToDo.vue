@@ -1,5 +1,7 @@
 <template>
   <div>
+    alertUp = {{alertUp}},
+    deletedGroupName = {{deletedGroupName}},
     <bar @changeFilter="changeFilter"/>
 
     <div v-for="(groupName, ind) in ACCEPT_GROUP_NAMES"
@@ -11,7 +13,9 @@
         <div class="carts-group__name">
           Group name is {{groupName}}
         </div>
-        <button @click="DELETE_GROUP(groupName)" class="carts-group__btn">Delete this group total</button>
+        <button @click="alertRun(groupName)" class="carts-group__btn">
+          Delete this group total
+        </button>
       </div>
       <div class="carts-group__items">
         <cart v-for="(item, ind) in ACCEPT_FILTRED_DATA(filters).filter(it => it.groupName === groupName)"
@@ -22,7 +26,10 @@
       </div>
     </div>
 
-    <alert/>
+<!--    <alert :deletedGroupName="deletedGroupName"-->
+<!--           :deleteFunction="DELETE_GROUP"-->
+<!--           v-if="alertUp"-->
+<!--    />-->
   </div>
 </template>
 
@@ -42,7 +49,9 @@
       filters: {
         name: '',
         status: 'all'
-      }
+      },
+      deletedGroupName: 'ee',
+      alertUp: false
     }),
     computed: {
       ...mapGetters([
@@ -63,6 +72,10 @@
       },
       onMakeItem(id) {
         this.$router.push({name: 'Add', query: {point: id}})
+      },
+      alertRun(groupName) {
+        this.deletedGroupName = groupName
+        this.alertUp = true
       }
     },
     created() {

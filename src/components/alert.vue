@@ -1,5 +1,6 @@
 <template>
   <div class="alert">
+    {{alertRun}}
     <div class="alert__title">
       A you sure ?
     </div>
@@ -15,12 +16,22 @@
   import {mapMutations, mapActions} from 'vuex'
 
   export default {
-    // methods: {
-    //   ...mapMutations({
-    //     ALERT_YES: 'ALERT_YES',
-    //     ALERT_ABORT: 'ALERT_ABORT'
-    //   })
-    // }
+    props: {
+      deletedGroupName: {
+        type: String,
+        required: true
+      },
+      deleteFunction: {
+        type: Function,
+        required: true
+      },
+      alertUp: {
+        type: Boolean,
+        required: true
+      }
+    },
+    methods: {
+    }
   }
 </script>
 
