@@ -24,8 +24,9 @@
       </div>
     </div>
 
-    <alert :deletedItemName="deletedGroupName"
+    <alert :deletedItemId="deletedGroupName"
            :deleteFunction="DELETE_GROUP"
+           :itemName="deletedGroupName"
            v-if="alertUp"
            @alertDown="alertDown"
     />

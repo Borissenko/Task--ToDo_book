@@ -3,7 +3,7 @@
     <div class="alert">
       <div class="alert__title">
         <div>A YOU SURE</div>
-        <div>to delete "{{deletedItemName}}" ?</div>
+        <div>to delete "{{itemName}}" ?</div>
       </div>
 
       <div class="alert__btns">
@@ -17,18 +17,22 @@
 <script>
   export default {
     props: {
-      deletedItemName: {
-        type: String,
+      deletedItemId: {
+        type: String | Number,
         required: true
       },
       deleteFunction: {
         type: Function,
         required: true
+      },
+      itemName: {
+        type: String,
+        required: true
       }
     },
     methods: {
       onYes() {
-        this.deleteFunction(this.deletedItemName)
+        this.deleteFunction(this.deletedItemId)
         this.$emit('alertDown')
       },
       onAbort() {

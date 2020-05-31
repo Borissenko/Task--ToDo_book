@@ -30,8 +30,9 @@
       <button @mouseup="onChangeItem(item.id)" class="cart__btn">Change</button>
     </div>
 
-    <alert :deletedItemName="item.title"
+    <alert :deletedItemId="item.id"
            :deleteFunction="DELETE_ITEM"
+           :itemName="item.title"
            v-if="alertUp"
            @alertDown="alertDown"
     />
