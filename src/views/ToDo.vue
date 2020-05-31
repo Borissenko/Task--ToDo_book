@@ -22,7 +22,7 @@
       </div>
     </div>
 
-
+    <alert/>
   </div>
 </template>
 
@@ -30,11 +30,13 @@
   import {mapGetters, mapActions, mapMutations} from 'vuex'
   import Bar from '@/components/bar'
   import Cart from '@/components/cart'
+  import Alert from '@/components/alert'
 
   export default {
     components: {
       Bar,
-      Cart
+      Cart,
+      Alert
     },
     data: () => ({
       filters: {
