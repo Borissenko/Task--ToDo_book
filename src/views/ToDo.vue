@@ -49,7 +49,7 @@
         name: '',
         status: 'all'
       },
-      deletedGroupName: 'ee',
+      deletedGroupName: '',
       alertUp: false
     }),
     computed: {
@@ -81,7 +81,7 @@
       }
     },
     created() {
-      if (this.ACCEPT_FILTRED_DATA({name: '', status: 'all'}).length == 0)
+      if (this.ACCEPT_FILTRED_DATA({name: '', status: 'all'}).length === 0)
         this.GET_DATA()
 
       if (!this.GET_TOKEN_FROM_STORE && localStorage.getItem('auth = '))

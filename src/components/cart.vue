@@ -26,19 +26,31 @@
     </div>
 
     <div class="cart__btns">
-      <button @mouseup="DELETE_ITEM(item.id)" class="cart__btn">Delete</button>
+      <button @mouseup="alertRun(item.id)" class="cart__btn">Delete</button>
       <button @mouseup="onChangeItem(item.id)" class="cart__btn">Change</button>
     </div>
+
+    <alert :deletedItemName="deletedItemName"
+           :deleteFunction="DELETE_ITEM"
+           v-if="alertUp"
+           @alertDown="alertDown"
+    />
   </div>
 </template>
 
 <script>
   import {mapActions} from 'vuex'
   import vClickOutside from 'v-click-outside'
+  import Alert from '@/components/alert'
 
   export default {
+    components: {
+      Alert
+    },
     data: () => ({
-      descriptionBlowUp: false
+      descriptionBlowUp: false,
+      deletedItemName: '',
+      alertUp: false
     }),
     props: {
       item: {
@@ -69,6 +81,13 @@
       },
       onBlowDoun() {
         this.descriptionBlowUp = false
+      },
+      alertRun(itemName) {
+        this.deletedItemName = itemName
+        this.alertUp = true
+      },
+      alertDown() {
+        this.alertUp = false
       }
     },
     directives: {
@@ -173,7 +192,6 @@
 
   label, input {
     cursor: pointer;
-    text-indent: 5px;
   }
 
 </style>
