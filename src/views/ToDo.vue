@@ -11,7 +11,7 @@
         <div class="carts-group__name">
           Group name is {{groupName}}
         </div>
-        <button @click="alertRun(groupName)" class="carts-group__btn">
+        <button @click="alertRunBeforeDelete(groupName)" class="carts-group__btn">
           Delete this group total
         </button>
       </div>
@@ -72,7 +72,7 @@
       onMakeItem(id) {
         this.$router.push({name: 'Add', query: {point: id}})
       },
-      alertRun(groupName) {
+      alertRunBeforeDelete(groupName) {
         this.deletedGroupName = groupName
         this.alertUp = true
       },

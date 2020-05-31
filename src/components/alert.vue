@@ -1,7 +1,6 @@
 <template>
   <div class="alert-fon">
     <div class="alert">
-      {{alertRun}}
       <div class="alert__title">
         <div>A YOU SURE</div>
         <div>to delete "{{deletedItemName}}" ?</div>

@@ -26,7 +26,7 @@
     </div>
 
     <div class="cart__btns">
-      <button @mouseup="alertRun(item.id)" class="cart__btn">Delete</button>
+      <button @mouseup="alertRunBeforeDelete(item.id)" class="cart__btn">Delete</button>
       <button @mouseup="onChangeItem(item.id)" class="cart__btn">Change</button>
     </div>
 
@@ -81,7 +81,7 @@
       onBlowDoun() {
         this.descriptionBlowUp = false
       },
-      alertRun(itemName) {
+      alertRunBeforeDelete(itemName) {
         this.deletedItemName = itemName
         this.alertUp = true
       },
