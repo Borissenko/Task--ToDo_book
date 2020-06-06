@@ -62,6 +62,7 @@
     },
     created() {
       if (typeof this.$route.query.point === "number")
+        console.log('typeof this.$route.query ==', typeof this.$route.query.point)
         this.forms = {...this.ACCEPT_ITEM(this.$route.query.point)}
     }
   }

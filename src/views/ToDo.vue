@@ -56,7 +56,8 @@
     computed: {
       ...mapGetters([
         'ACCEPT_GROUP_NAMES',
-        'ACCEPT_FILTRED_DATA'
+        'ACCEPT_FILTRED_DATA',
+        'GET_TOKEN_FROM_STORE'
       ])
     },
     methods: {
