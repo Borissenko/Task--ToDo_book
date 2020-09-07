@@ -14,7 +14,7 @@ export default new Vuex.Store({
     PUT_TOKEN(st, token) {
       st.token = token
     },
-    DELETE_TOKEN (st) {
+    DELETE_TOKEN(st) {
       st.token = 'false'
     },
     SET_GROUPS_TO_STORE(st, data) {
@@ -51,7 +51,7 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    AUTH_FORM({commit, dispatch}, pl) {  //факовая аут-я и факовое получение токена с сервера
+    AUTH_FORM({commit, dispatch, state: {groups}}, pl) {  //факовая аут-я и факовое получение токена с сервера
       if(pl !== undefined) {
         return Promise.resolve('true')
           .then(response => {
@@ -59,7 +59,10 @@ export default new Vuex.Store({
             return response
           })
           .then(response => localStorage.setItem('auth = ', response.toString()))
-          .then(() => dispatch('GET_DATA'))
+          .then(() => {
+            if(groups.length === 0)
+              dispatch('GET_DATA')
+          })
       }
     },
     DELETE_TOKEN({commit}) {
@@ -85,13 +88,13 @@ export default new Vuex.Store({
       //при наличии бакенда здесь необходимо делать запрос на удаление группы в bd сервера
     },
     MAKE_TASK({commit}, item) {
-      if (item.title.length === 0) {
+      if(item.title.length === 0) {
         commit('ADD_GROUP_TO_STORE', item.groupName)
         //при наличии бакенда здесь необходимо делать запрос на изменение в bd сервера
         return Promise.resolve()
       }
-
-      if (item.id == null) {    //если id- нет, то здесь НОВЫЙ item.
+      
+      if(item.id == null) {    //если id- нет, то здесь НОВЫЙ item.
         const id = Date.now()
         commit('ADD_ITEM_TO_STORE', {...item, id})  //присуждаем id item-объекту
         //при наличии бакенда здесь необходимо делать запрос на добавление item в bd сервера
@@ -105,14 +108,14 @@ export default new Vuex.Store({
   },
   getters: {
     ACCEPT_FILTRED_DATA: state => filters => {
-      if (filters.status === 'all') {
-        if (filters.name === '') {  // любой статус, без фильтра по имени
+      if(filters.status === 'all') {
+        if(filters.name === '') {  // любой статус, без фильтра по имени
           return state.tasks
         } else {                   // любой статус, фильтр по имени
           return state.tasks.filter(it => it.title.toLowerCase().includes(filters.name.toLowerCase()))
         }
       } else {                    // отфильтруем по статусу и по имени
-        if (filters.name === '') {
+        if(filters.name === '') {
           return state.tasks.filter(it => Boolean(it.status) === Boolean(filters.status))
         } else {
           return state.tasks.filter(it => it.title.toLowerCase().includes(filters.name.toLowerCase()) && Boolean(it.status) === Boolean(filters.status))
